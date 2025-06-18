@@ -80,8 +80,8 @@ if map_data and map_data["last_clicked"]:
         heures_disponibles = response["hourly"]["time"]
         heures_disponibles_dt = [datetime.fromisoformat(h) for h in heures_disponibles]
 
-        # 📅 Sélection de la date avec calendrier
-        st.subheader("🗓️ Sélection de la livraison")
+        # 📅 Sélection de la date de livraison
+        st.subheader("🗓️ Sélection la date de la livraison")
         min_date = datetime.now().date()
         max_date = (datetime.now() + timedelta(days=7)).date()
         date_selectionnee = st.date_input(
@@ -96,7 +96,7 @@ if map_data and map_data["last_clicked"]:
         heures_du_jour = [h for h in heures_disponibles_dt if h.date() == date_selectionnee]
 
         if heures_du_jour:
-            heure_selectionnee = st.selectbox("Sélectionnez l'heure", heures_du_jour)
+            heure_selectionnee = st.selectbox("Sélectionnez l'heure de la livraison", heures_du_jour)
             index_horaire = heures_disponibles_dt.index(heure_selectionnee)
 
             # 📊 Préparation des données
@@ -157,7 +157,7 @@ if map_data and map_data["last_clicked"]:
                 st.plotly_chart(fig_rose, use_container_width=True)
 
             # 📍 Carte de localisation
-            st.subheader("📍 Position de livraison")
+            st.subheader("📍 Position final de livraison")
             m = folium.Map(location=[lat, lon], zoom_start=10)
             folium.Marker(
                 [lat, lon],
